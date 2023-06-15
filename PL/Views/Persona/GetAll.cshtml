@@ -1,0 +1,55 @@
+﻿@model ML.Persona
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Nombres ordenados Alfabeticamente</h1>
+
+<table class="table table-hover table-striped table-bordered table-responsive" id="TablaNombres">
+    <thead>
+        <tr class="table-secondary">
+            <td style="text-align:center">Nombre</td>
+            <td style="text-align:center">Calcular Puntuacion</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (ML.Persona persona in Model.Personas)
+        {
+            <tr>
+                <td style="text-align:center">@persona.Nombre</td>
+                <td style="text-align:center; vertical-align:middle"><a class="btn btn-warning" href="@Url.Action("Puntuacion","Persona", new{Nombre = persona.Nombre})"></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.material.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#TablaNombres').DataTable({
+                searching: false,
+                "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+                autoWidth: false,
+                columnDefs: [
+                    {
+                        targets: ['_all'],
+                        className: 'mdc-data-table__cell',
+                    },
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+                },
+            });
+        });
+
+    </script>
+        }
+
